@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Sales Leads List Display Item</title>
-
     <!--[if gte mso 9]><xml>
     <mso:CustomDocumentProperties>
     <mso:TemplateHidden msdt:dt="string">0</mso:TemplateHidden>
@@ -10,7 +9,7 @@
     <mso:ContentTypeId msdt:dt="string">0x0101002039C03B61C64EC4A04F5361F385106603</mso:ContentTypeId>
     <mso:TargetControlType msdt:dt="string">;#SearchResults;#</mso:TargetControlType>
     <mso:HtmlDesignAssociated msdt:dt="string">1</mso:HtmlDesignAssociated>
-    <mso:ManagedPropertyMapping msdt:dt="string">'SalesLeadFullName':'SalesLeadFullName','SalesLeadFacility':'SalesLeadFacility','SalesLeadDepartment':'SalesLeadDepartment','SalesLeadJobtitle':'SalesLeadJobtitle','OWS_URL':'OWS_URL','ParentLink':'ParentLink','FileType':'FileType','IsContainer':'IsContainer','SecondaryFileExtension':'SecondaryFileExtension','DisplayAuthor':'DisplayAuthor','SiteTitle':'SiteTitle','Filename':'Filename','ContentType':'ContentType','SPSiteURL':'SPSiteURL','ListURL':'ListURL'</mso:ManagedPropertyMapping>
+    <mso:ManagedPropertyMapping msdt:dt="string">'SalesLeadFullName':'SalesLeadFullName','SalesLeadFacility':'SalesLeadFacility','SalesLeadDepartment':'SalesLeadDepartment','SalesLeadJobtitle':'SalesLeadJobtitle','OWS_URL':'OWS_URL','ParentLink':'ParentLink','FileType':'FileType','IsContainer':'IsContainer','SecondaryFileExtension':'SecondaryFileExtension','DisplayAuthor':'DisplayAuthor','SiteTitle':'SiteTitle','Filename':'Filename','ContentType':'ContentType','SPSiteURL':'SPSiteURL','ListURL':'ListURL','ListItemID':'ListItemID','SalesLeadSalesRep':'SalesLeadSalesRep','Created':'Created'</mso:ManagedPropertyMapping>
     <mso:_dlc_DocId msdt:dt="string">2PPW52Q5PMDV-6-317</mso:_dlc_DocId>
     <mso:_dlc_DocIdItemGuid msdt:dt="string">8bfd50a1-79b3-4cbf-a4b2-f21c58476e0f</mso:_dlc_DocIdItemGuid>
     <mso:_dlc_DocIdUrl msdt:dt="string">http://spdev-2103.cloudapp.net/_layouts/15/DocIdRedir.aspx?ID=2PPW52Q5PMDV-6-317, 2PPW52Q5PMDV-6-317</mso:_dlc_DocIdUrl>
@@ -22,6 +21,9 @@
     </xml><![endif]-->
 </head>
     <body>
+    <script>
+        $includeCSS(this.url,"font-awesome-4.7.0/css/font-awesome.min.css");
+    </script>
 
         <div id="Item_Default">
             <!--#_
@@ -31,64 +33,43 @@
                     var hoverId = id + Srch.U.Ids.hover;
                     var hoverUrl = "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default_HoverPanel.js";
                     $setResultItem(itemId, ctx.CurrentItem);
+                    console.log(ctx);
                     ctx.CurrentItem.csr_Icon = Srch.U.getIconUrlByFileExtension(ctx.CurrentItem)
                     ctx.currentItem_ShowHoverPanelCallback = Srch.U.getShowHoverPanelCallback(itemId, hoverId, hoverUrl);
-                    ctx.currentItem_HideHoverPanelCallback = Srch.U.getHideHoverPanelCallback();		
+                    ctx.currentItem_HideHoverPanelCallback = Srch.U.getHideHoverPanelCallback();
+                    	
             _#-->
             <div id="_#= $htmlEncode(itemId) =#_" name="Item" data-displaytemplate="DefaultItem" class="ms-srch-item" onmouseover="_#= ctx.currentItem_ShowHoverPanelCallback =#_" onmouseout="_#= ctx.currentItem_HideHoverPanelCallback =#_" style="padding-bottom: 15px; margin-bottom: 15px; border-bottom-color: #d0d0d0; border-bottom-width: 1px; border-bottom-style: dotted;">
                 <div id="_#= $htmlEncode(hoverId) =#_" class="ms-srch-hover-outerContainer"></div>
 					<div id="Data">
-                    <table>                       
-                        <tr>
-                            <td class="gm-agg-col-data-icn">
-                                <span class="srch_Icon">
-                                    <img align="absMiddle" src="_#=ctx.CurrentItem.csr_Icon=#_" alt="_#=ctx.CurrentItem.Path=#_">
-                                    <!--#_
-                            if(!$isNull(ctx.CurrentItem.GMRecordDeclareDate))
-                            {
-                _#-->
-                                    <img width="16" height="16" title="" class="ms-vb-icon-overlay" alt="" src="/_layouts/15/images/lockoverlay.png" />
-                                    <!--#_
-                    }
-                _#-->
-                                </span>
-                            </td>
-                            <td class="gm-agg-col-data">
-                                <div class="srch_MainTitle">
-                                    <!--#_
-                            if(!$isNull(ctx.CurrentItem.GMRecordDeclareDate))
-                            {
-                _#-->
-                                    <a class="Title_Button" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_</a>
-                                    <!--#_
-                    }
-                    else
-                    {
-                    ctx.CurrentItem.SalesLeadFullName = ctx.CurrentItem.SalesLeadFullName.substring(8); 
-                    console.log(ctx.CurrentItem);
-
-                _#-->
-                                    <a class="Title_Button" style="padding-left:6px;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_</a>
-                                    <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
-                                    <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
-                                    <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
-                                    <a href="_#=ctx.CurrentItem.ParentLink=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.ParentLink=#_</a>
-                                    <!--#_
-                    }
-                _#-->
-                                </div>
-                            </td>
-							<td class="gm-agg-col-data-small">
-								_#=ctx.CurrentItem.OWS_URL=#_ &nbsp;
-							</td>
-                        </tr>
-                    </table>
-                </div>
+                        <div class="gm-agg-col-data-icn">
+                        <!--#_ 
+                         var pathURL = "https://centurionmp.sharepoint.com/sites/sales/Lists/SalesLeads/EditForm.aspx?ID="+ctx.CurrentItem.ListItemID+"&Source=https%3A%2F%2Fcenturionmp%2Esharepoint%2Ecom%2Fsites%2Fsales%2FSitePages%2FSearchSalesLeads%2Easpx"; 
+                        ctx.CurrentItem.SalesLeadFullName = ctx.CurrentItem.SalesLeadFullName.substring(8);
+                        ctx.CurrentItem.ListURL = pathURL; 
+                        console.log(ctx.CurrentItem);
+                        var createdDate = Math.round((((ctx.CurrentItem.Created/1000)/60)/60)/24);
+                        var todaysDate = Math.round((((new Date()/1000)/60)/60)/24);
+                        if((todaysDate - createdDate)<= 4){
+                        _#-->
+                            <strong class="Title_Button tooltip" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></strong>
+                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
+                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
+                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
+                            <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
+                        <!--#_ } else { _#-->
+                        <strong class="Title_Button" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_</strong>
+                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
+                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
+                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
+                            <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
+                        <!--#_ } _#-->
+                        </div>
+                    </div>
             </div>
             <!--#_
             }
     _#-->
-
         </div>
     </body>
 </html>
