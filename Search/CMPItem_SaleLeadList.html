@@ -23,6 +23,7 @@
     <body>
     <script>
         $includeCSS(this.url,"font-awesome-4.7.0/css/font-awesome.min.css");
+        $includeCSS(this.url,"font-awesome-4.7.0/animate.css"); 
     </script>
 
         <div id="Item_Default">
@@ -52,7 +53,7 @@
                         var todaysDate = Math.round((((new Date()/1000)/60)/60)/24);
                         if((todaysDate - createdDate)<= 4){
                         _#-->
-                            <strong class="Title_Button tooltip" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></strong>
+                            <strong class="Title_Button tooltip" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></strong>
                             <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
                             <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
                             <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
