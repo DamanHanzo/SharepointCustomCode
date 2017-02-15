@@ -1,11 +1,8 @@
+
 <html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"> 
 <head>
-<title>Sale Leads Result</title>
-<style type="text/css">
-    .alt-style {
-        margin-left: 30em;
-    }
-</style>
+<title>Sales Leads Search Result</title>
+
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:TemplateHidden msdt:dt="string">0</mso:TemplateHidden>
@@ -13,35 +10,39 @@
 <mso:ContentTypeId msdt:dt="string">0x0101002039C03B61C64EC4A04F5361F385106601</mso:ContentTypeId>
 <mso:TargetControlType msdt:dt="string">;#SearchResults;#</mso:TargetControlType>
 <mso:HtmlDesignAssociated msdt:dt="string">1</mso:HtmlDesignAssociated>
-<mso:HtmlDesignStatusAndPreview msdt:dt="string">https://centurionmp.sharepoint.com/sites/sales/_catalogs/masterpage/Display Templates/Search/Control_SearchResults.html, Warnings and Errors.</mso:HtmlDesignStatusAndPreview>
+<mso:_dlc_DocId msdt:dt="string">5NSXCRQMCSAV-2-217</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">fa0d28b3-76ff-48ef-b396-798ff8f662e0</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">http://spdev-2103.cloudapp.net/_layouts/15/DocIdRedir.aspx?ID=5NSXCRQMCSAV-2-217, 5NSXCRQMCSAV-2-217</mso:_dlc_DocIdUrl>
+<mso:HtmlDesignStatusAndPreview msdt:dt="string">https://centurionmp.sharepoint.com/sites/sales/_catalogs/masterpage/Display Templates/Search/Control_SalesLeadList.html, Conversion successful.</mso:HtmlDesignStatusAndPreview>
+<mso:HtmlDesignConversionSucceeded msdt:dt="string">True</mso:HtmlDesignConversionSucceeded>
+<mso:CrawlerXSLFile msdt:dt="string"></mso:CrawlerXSLFile>
+<mso:HtmlDesignPreviewUrl msdt:dt="string"></mso:HtmlDesignPreviewUrl>
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
 <body>
-<script>    
-        $includeCSS(this.url,"font-awesome-4.7.0/css/font-awesome.min.css");
-        $includeCSS(this.url,"font-awesome-4.7.0/animate.css"); 
-</script>
+    <script>    
+            $includeCSS(this.url,"font-awesome-4.7.0/css/font-awesome.min.css");
+            $includeCSS(this.url,"font-awesome-4.7.0/animate.css");
+            $includeCSS(this.url,"CMPsaleslead.css");
+    </script>
     <div id="Control_SearchResults">
 <!--#_
-        if (Srch.U.shouldAnimate(ctx.DataProvider)){
+        if (Srch.U.shouldAnimate(ctx.DataProvider)){            
             Srch.U.hideElement(ctx.ClientControl.get_element());
             ctx.OnPostRender = function(){ Srch.U.animateResults(ctx.ClientControl, ctx.DataProvider.get_userAction()); }; 
         }
 _#-->                    
-        <div class="ms-srch-result alt-style" id="Result" name="Control">
+        <div class="ms-srch-result alt-style" style="margin-right:30em;" id="Result" name="Control">
+           
 <!--#_ 
             var arwImageUrl = GetThemedImageUrl('ecbarw.png');
-
             function getDropDownArrowHtml(alttext) { 
-
-                var displayImageUrl = Srch.U.htmlEncodeNonBase64ImageUrl(arwImageUrl);
                 return String.format('<img src="{0}" class="ms-core-menu-arrow" alt="{1}" />', 
-                    displayImageUrl,
+                    $urlHtmlEncode(arwImageUrl),
                     $htmlEncode(alttext)
                 );
             }
-
             function getDropdownMenu(linkId, linkText, linkTitle, funcName) {
                 var cssLink = "color: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-wrap: normal; display:inline-block; max-width: 250px; vertical-align: top; text-decoration: none";
                 var cssSpan = "unicode-bidi:embed; display:inline-block;"
@@ -54,199 +55,128 @@ _#-->
                                     cssSpan,
                                     cssLink);
             }
-
+            function shouldRenderNewUI() {
+                return     ctx.ScriptApplicationManager.getNavigationNodes && typeof ctx.ScriptApplicationManager.getNavigationNodes === "function"
+                        && ctx.DataProvider.get_effectiveLanguageDisplayName && typeof ctx.DataProvider.get_effectiveLanguageDisplayName === "function"
+                        && typeof(Srch.Res.rs_PreferredSearchLanguage) === "string"
+                        && typeof(Srch.Res.rs_SearchScope) === "string";
+            }
             if(!$isNull(ctx.ScriptApplicationManager) && !$isNull(ctx.DataProvider) && !$isNull(ctx.ClientControl)){
                 var appStates = ctx.ScriptApplicationManager.states;
-
                 var getUpScopeHtmlFunc, langPrefHtml;
-                if(ctx.ClientControl.get_showUpScopeMessage()) {
-
+                if(ctx.ClientControl.get_showUpScopeMessage()){
                     getUpScopeHtmlFunc = function(linkId) {
                         var upScopeUrl = ctx.DataProvider.get_upScopeUrl();
                         if (!$isEmptyString(upScopeUrl)) {
-                            var _idScopeMenuSuffix = linkId + '_ScopeMenu';
-                            var _idScopeLinkSuffix = linkId + '_ScopeLink';
-                            var _idScopeMenuItemSuffix = linkId + '_ScopeMenuItem';
-
-                            var scopeLinkIdNoEncode = ctx.ClientControl.get_id() + _idScopeLinkSuffix; 
-                            var contextTitle = appStates["contextTitle"];
-                            var scopeName = $isEmptyString(contextTitle) ? 
-                                    "undefined":
-                                    contextTitle;
-
-                            function showSearchScopeMenu(anchorElement) {
-                                var self = $getClientControl(anchorElement);
-                                EnsureScriptFunc('SP.js', 'SP.UI.Menu', function () {
-                                    var menu = SP.UI.Menu.create(self.get_id() + _idScopeMenuSuffix);
-                                    var seqNo = 0;
-
-                                    var navigationNodes = ctx.ScriptApplicationManager.getNavigationNodes();
-                                    for (var i = 0; i < navigationNodes.length; i++) {
-                                        var navNode = navigationNodes[i];
-                                        var script = String.format("SP.Utilities.HttpUtility.navigateTo(Srch.U.getResultsPageUrl('{0}', $getClientControl(document.getElementById(\'{1}\')).get_dataProvider().get_currentQueryState().k));", navNode.url, self.get_id());    
-                                        menu.addMenuItem(navNode.name, script, null, null, seqNo, navNode.promptString, self.get_id() + _idScopeMenuItemSuffix + seqNo++);
-                                    }
-
-                                    menu.hideIcons();
-                                    menu.show(anchorElement, true, false, 0);
-                                });
+                            if (shouldRenderNewUI()) {
+                                var _idScopeMenuSuffix = linkId + '_ScopeMenu';
+                                var _idScopeLinkSuffix = linkId + '_ScopeLink';
+                                var _idScopeMenuItemSuffix = linkId + '_ScopeMenuItem';
+                                var scopeLinkIdNoEncode = ctx.ClientControl.get_id() + _idScopeLinkSuffix; 
+                                var contextTitle = appStates["contextTitle"];
+                                var scopeName = $isEmptyString(contextTitle) ? 
+                                        "undefined":
+                                        contextTitle;
+                                function showSearchScopeMenu(anchorElement) {
+                                    var self = $getClientControl(anchorElement);
+                                    EnsureScriptFunc('SP.js', 'SP.UI.Menu', function () {
+                                        var menu = SP.UI.Menu.create(self.get_id() + _idScopeMenuSuffix);
+                                        var seqNo = 0;
+                                        var navigationNodes = ctx.ScriptApplicationManager.getNavigationNodes();
+                                        for (var i = 0; i < navigationNodes.length; i++) {
+                                            var navNode = navigationNodes[i];
+                                            var script = String.format("SP.Utilities.HttpUtility.navigateTo(Srch.U.getResultsPageUrl('{0}', $getClientControl(document.getElementById(\'{1}\')).get_dataProvider().get_currentQueryState().k));", navNode.url, self.get_id());    
+                                            menu.addMenuItem(navNode.name, script, null, null, seqNo, navNode.promptString, self.get_id() + _idScopeMenuItemSuffix + seqNo++);
+                                        }
+                                        menu.hideIcons();
+                                        menu.show(anchorElement, true, false, 0);
+                                    });
+                                }
+                                ctx.ClientControl.showSearchScopeMenu = showSearchScopeMenu;
+                                var upScopeLinkHtml = getDropdownMenu(scopeLinkIdNoEncode, 
+                                    scopeName, 
+                                    $resource("rs_SearchScopeTooltip"),
+                                    "showSearchScopeMenu");
+                                return String.format($htmlEncode($resource("rs_SearchScope")), upScopeLinkHtml);
+                            } else {
+                                var upScopeTitle = String.format($resource("rs_UpscopeTitle"), $resource("rs_UpScopeActionPhrase"));
+                                var upScopeLinkHtml = String.format('<a id="{0}" href="{1}" class="ms-searchNotification" title="{2}">' + 
+                                    $htmlEncode($resource("rs_UpScopeActionPhrase")) +
+                                '</a>', $htmlEncode(linkId), $urlHtmlEncode(upScopeUrl), $htmlEncode(upScopeTitle));
+                                return String.format($htmlEncode($resource("rs_Upscope")), upScopeLinkHtml);
                             }
-
-                            ctx.ClientControl.showSearchScopeMenu = showSearchScopeMenu;
-
-                            var upScopeLinkHtml = getDropdownMenu(scopeLinkIdNoEncode, 
-                                scopeName, 
-                                $resource("rs_SearchScopeTooltip"),
-                                "showSearchScopeMenu");
-                            return String.format($htmlEncode($resource("rs_SearchScope")), upScopeLinkHtml);
                         } else {
                             return "";
                         }
-                    };
+                    };                  
                 }
                 var showSortOptions = ctx.ClientControl.get_showSortOptions() && !$isEmptyArray(ctx.DataProvider.get_availableSorts());
                 var showLanguageOptions = ctx.ClientControl.get_showLanguageOptions();
-                var showXGeoOptions = !!(ctx.ClientControl.get_showXGeoOptions && ctx.ClientControl.get_showXGeoOptions() && ctx.ClientControl.get_isXGeoFlighted());
-
-                if (showLanguageOptions) {
-                    var _idLangMenuSuffix = '_LangMenu';
-                    var _idGeoMenuSuffix = '_GeoMenu';
-                    var _idLangLinkSuffix = '_LangLink';
-                    var _idLangSelectSuffix = '_LangLSelect';
-                    var _idLangMenuItemSuffix = '_LangMenuItem';
-                    var _idLangMenuItemPrefSuffix = '_LangMenuItemLangPref';
-                    var _idLangMenuItemMoreSuffix = '_LangMenuItemMoreLang';
-
-                    var langLinkIdNoEncode = ctx.ClientControl.get_id() + _idLangLinkSuffix;    
-
-                    function showLanguageMenu(anchorElement) {
-                        var self = $getClientControl(anchorElement);
-                        EnsureScriptFunc('SP.js', 'SP.UI.Menu', function () {
-                            var menu = SP.UI.Menu.create(self.get_id() + _idLangMenuSuffix);
-                            var sam =  Srch.ScriptApplicationManager.get_current();
-                            var languagePreferences = sam.getUserPreferenceLanguages();
-                            var seqNo = 0;
-
-                            if (!Srch.U.n(languagePreferences) && languagePreferences.length > 0) {
-                                for (var i = 0; i < languagePreferences.length; i++) {
-                                    var langPref = languagePreferences[i];
-                                    var displayName = langPref.label;
-                                    var actionScript = String.format('$getClientControl(document.getElementById(\'{1}\')).changeQueryLanguage({0});', $htmlEncode(langPref.id + ''), SP.Utilities.HttpUtility.ecmaScriptStringLiteralEncode(self.get_id()));
-                                    menu.addMenuItem(displayName, actionScript, null, null, seqNo++, null, self.get_id() + _idLangMenuItemSuffix + displayName);
-                                }
-                            }
-                            menu.addSeparator();
-
-                            var advancedLanguagePreferencesUrl = sam.states['userAdvancedLanguageSettingsUrl'];
-                            if (!Srch.U.e(advancedLanguagePreferencesUrl)) {
-                                var langPrefScript = String.format('window.location = \'{0}\';', SP.Utilities.HttpUtility.ecmaScriptStringLiteralEncode(advancedLanguagePreferencesUrl));
-                                menu.addMenuItem(Srch.Res.rs_LanguagePreferences, langPrefScript, null, null, seqNo, Srch.Res.rs_LanguagePreferences, self.get_id() + _idLangMenuItemPrefSuffix);
-                            }
-
-                            menu.hideIcons();
-                            menu.show(anchorElement, true, false, 0);
-                        });
-                    }
-
-                    function createSearchUrl(currentUrl, searchCenterUrl) {
-                        var queryPart = currentUrl.split('\Pages')[1];
-                        var searchUrl = searchCenterUrl.split('\Pages')[0];
-                        var finalUrl = searchUrl.concat('Pages', queryPart);
-                        return finalUrl;
-                    }
-
-                    function guessRegionFromHost(host, regionInfoJson) {
-                        for(i in regionInfoJson) {
-                            if(regionInfoJson[i].MySiteHostUrl.toLocaleLowerCase().includes(host.toLocaleLowerCase())){
-                                return regionInfoJson[i].DataLocation;
-                            }
-                        }
-                        return "select";
-                    }
-
-                    function showGeoMenu(anchorElement) {
-                        var self = $getClientControl(anchorElement);
-                        EnsureScriptFunc('SP.js', 'SP.UI.Menu', function () {
-                            var menu = SP.UI.Menu.create(self.get_id() + _idGeoMenuSuffix);
-                            var geoPrefs = "";
-                            try{
-                                geoPrefs = JSON.parse(ctx.ClientControl.get_searchCenterXGeoLocations());
-                            } catch(e) {
-
-                            }
-
-                            var seqNo = 0;
-                            if (!Srch.U.n(geoPrefs) && geoPrefs.length > 0) {
-                                for (var i = 0; i < geoPrefs.length; i++) {
-
-                                    if(geoPrefs[i].name && geoPrefs[i].url) {
-                                        var actionScript = String.format("javascript:window.open('{0}');", createSearchUrl(window.location.href, geoPrefs[i].url));
-                                        menu.addMenuItem(geoPrefs[i].name, actionScript, null, null, seqNo++, null, null);
-
+                var oldLanguageMarkupRequired = false;
+                if(showLanguageOptions){                
+                    if (shouldRenderNewUI()) {
+                        var _idLangMenuSuffix = '_LangMenu';
+                        var _idLangLinkSuffix = '_LangLink';
+                        var _idLangSelectSuffix = '_LangLSelect';
+                        var _idLangMenuItemSuffix = '_LangMenuItem';
+                        var _idLangMenuItemPrefSuffix = '_LangMenuItemLangPref';
+                        var _idLangMenuItemMoreSuffix = '_LangMenuItemMoreLang';
+                        var langLinkIdNoEncode = ctx.ClientControl.get_id() + _idLangLinkSuffix;    
+                        function showLanguageMenu(anchorElement) {
+                            var self = $getClientControl(anchorElement);
+                            EnsureScriptFunc('SP.js', 'SP.UI.Menu', function () {
+                                var menu = SP.UI.Menu.create(self.get_id() + _idLangMenuSuffix);
+                                var sam =  Srch.ScriptApplicationManager.get_current();
+                                var languagePreferences = sam.getUserPreferenceLanguages();
+                                var seqNo = 0;
+                                if (!Srch.U.n(languagePreferences) && languagePreferences.length > 0) {
+                                    for (var i = 0; i < languagePreferences.length; i++) {
+                                        var langPref = languagePreferences[i];
+                                        var displayName = langPref.label;
+                                        var actionScript = String.format('$getClientControl(document.getElementById(\'{1}\')).changeQueryLanguage({0});', $htmlEncode(langPref.id + ''), SP.Utilities.HttpUtility.ecmaScriptStringLiteralEncode(self.get_id()));
+                                        menu.addMenuItem(displayName, actionScript, null, null, seqNo++, null, self.get_id() + _idLangMenuItemSuffix + displayName);
                                     }
                                 }
-                            }
-
-                            menu.addSeparator();
-                            menu.hideIcons();
-                            menu.show(anchorElement, true, false, 0);
-                        });
-                    }
-
-                    ctx.ClientControl.showLanguageMenu = showLanguageMenu;
-                    ctx.ClientControl.showGeoMenu = showGeoMenu;
-
-                    var currLangLabel = ctx.DataProvider.get_effectiveLanguageDisplayName();
-
-                    if ($isEmptyString(currLangLabel)) {
-
-                        var advLangSettingsUrl = ctx.ScriptApplicationManager.states['userAdvancedLanguageSettingsUrl'];
-                        if (!Srch.U.e(advLangSettingsUrl)) {
+                                var advancedLanguagePreferencesUrl = sam.states['userAdvancedLanguageSettingsUrl'];
+                                if (!$isEmptyString(advancedLanguagePreferencesUrl)) {
+                                    menu.addSeparator();
+                                    var langPrefScript = String.format('window.location = \'{0}\';', SP.Utilities.HttpUtility.ecmaScriptStringLiteralEncode(advancedLanguagePreferencesUrl));
+                                    menu.addMenuItem(Srch.Res.rs_LanguagePreferences, langPrefScript, null, null, seqNo, Srch.Res.rs_LanguagePreferences, self.get_id() + _idLangMenuItemPrefSuffix);
+                                }
+                                menu.hideIcons();
+                                menu.show(anchorElement, true, false, 0);
+                            });
+                        }
+                        ctx.ClientControl.showLanguageMenu = showLanguageMenu;
+                        var currLangLabel = ctx.DataProvider.get_effectiveLanguageDisplayName();
+                        if ($isEmptyString(currLangLabel)) {
+                            var advLangSettingsUrl = ctx.ScriptApplicationManager.states['userAdvancedLanguageSettingsUrl'];
                             var settingsLinkHtml = String.format('<span><a class="ms-searchNotification" href="{0}">{1}</a></span>',
-                                $urlHtmlEncodeString(advLangSettingsUrl),
+                                $urlHtmlEncode(advLangSettingsUrl),
                                 $htmlEncode(Srch.Res.rs_SelectPreferredSearchLanguage_Language)
                             );
-                            langPrefHtml = String.format($htmlEncode(Srch.Res.rs_SelectPreferredSearchLanguage), settingsLinkHtml);
+                            langPrefHtml = String.format($htmlEncode(Srch.Res.rs_SelectPreferredSearchLanguage), settingsLinkHtml);              
+                        } else {
+                            var langLinkHtml = getDropdownMenu(langLinkIdNoEncode, 
+                                currLangLabel, 
+                                Srch.Res.rs_LanguageDescription,
+                                "showLanguageMenu");                                 
+                            langPrefHtml = String.format($htmlEncode(Srch.Res.rs_PreferredSearchLanguage), langLinkHtml);                                 
                         }
-                    } else {
-                        var langLinkHtml = getDropdownMenu(langLinkIdNoEncode, 
-                            currLangLabel, 
-                            Srch.Res.rs_LanguageDescription,
-                            "showLanguageMenu");
-
-                        langPrefHtml = String.format($htmlEncode(Srch.Res.rs_PreferredSearchLanguage), langLinkHtml);
-
-                        if(showXGeoOptions) {
-
-                            langPrefHtml = $htmlEncode("Preference for results:") + "<br>Language: "+langLinkHtml;
-
-                            var currentRegion = "select";
-                            try{
-                                currentRegion = guessRegionFromHost(window.location.host, JSON.parse(ctx.ClientControl.get_xGeoTenantsInfo()));
-                            } catch(e) {
-
-                            }
-
-                            var geoLinkHtml = getDropdownMenu(langLinkIdNoEncode, 
-                                currentRegion, 
-                                "Choose which region to search in",
-                                "showGeoMenu");
-
-                            langPrefHtml += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + $htmlEncode("Region: ") + geoLinkHtml;
-                        }
+                    } else {                        
+                        oldLanguageMarkupRequired = !$isNull(appStates.languages) && appStates.languages.length > 1;           
                     }
                 }
-
                 var upScopeHtml = getUpScopeHtmlFunc ? getUpScopeHtmlFunc("UpScopeLinkTopA") : "";
-                if (langPrefHtml || upScopeHtml) {
+                if (langPrefHtml || upScopeHtml || oldLanguageMarkupRequired) {    
 _#-->  
-                    <div id="UpScopeLinkTop" class="ms-srch-upscope-top" style="display:table;  width: 500px">
+                    <div id="UpScopeLinkTop" class="ms-srch-upscope-top" style="display:table;  width: 500px; padding-bottom: 10px; margin-bottom: 20px;">
 <!--#_
                     if (upScopeHtml) {
 _#-->
                         <div style="display: table-cell">_#=  upScopeHtml =#_</div>
 <!--#_
-                        if (langPrefHtml) { 
+                        if (langPrefHtml || oldLanguageMarkupRequired) { 
 _#-->
                             <div style="display: table-cell; width: 20px"></div>
 <!--#_
@@ -254,14 +184,49 @@ _#-->
                     }
                     if (langPrefHtml) {
 _#-->
-                        <div style="display: table-cell">_#= langPrefHtml =#_  
-                            <p style="padding-left: 10px;">
-                                <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i>: Hot/New Lead(Lead that is less than a week old)
-                            </p>
-                        </div>
+                        <div style="display: table-cell">_#= langPrefHtml =#_ <p style="display: inline-block; padding-left: 5px;">  <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i> = New Lead</p><p style="display: inline-block; padding-left: 5px;"><i class="fa fa-pencil fg-2x" style="color: black; cursor: pointer;" aria-hidden="true"></i> = Edit Lead</p></div>
+<!--#_
+                    } else if (oldLanguageMarkupRequired) {
+_#-->
+                        <div style="display: table-cell">
+<!--#_
+                               var languageDropDownClassNoEncode = "";
+                               if (ctx.ClientControl.get_repositionLanguageDropDown()) {
+                                    languageDropDownClassNoEncode = "ms-srch-result-languageDropDown";                                   
+                               }
+_#-->
+                                <select title="_#= $htmlEncode(Srch.Res.rs_LanguageDescription) =#_" id="LangSel" onchange="$getClientControl(this).changeQueryLanguage(this.value);">
+<!--#_ 
+                                    for (var i = 0; i < appStates.languages.length; i++) {
+                                        var lang = appStates.languages[i];
+                                        if(ctx.DataProvider.get_currentQueryState().l == lang.id) { 
+_#-->
+                                        <option selected="selected" value="_#= $htmlEncode(lang.id) =#_">
+                                                _#= $htmlEncode(lang.label) =#_
+                                        </option>
+<!--#_ 
+                                        } else {
+_#-->
+                                        <option value="_#= $htmlEncode(lang.id) =#_">
+                                                _#= $htmlEncode(lang.label) =#_
+                                        </option>
+<!--#_ 
+                                        } 
+                                    } 
+_#-->
+                                 </select>
+                        </div>                                
 <!--#_
                     }
-_#-->
+_#-->                    
+                    </div>
+                     <div id="Headers">
+                        <div class="headerRow">
+                            <div class="header-col"><strong>Name</strong></div>
+                            <div class="header-col"><strong>Facility</strong></div>
+                            <div class="header-col"><strong>Department</strong></div>
+                            <div class="header-col"><strong>Job Title</strong></div>
+                        </div>    
                     </div>
 <!--#_
                 }
@@ -270,7 +235,8 @@ _#-->
                     var availableSorts = ctx.DataProvider.get_availableSorts();
 _#-->
                     <div id="ResultHeader" class="_#= resultHeaderClassNoEncode =#_">
-                        <ul id="Actions">                    
+             
+                        <ul id="Actions">                
                                 <li id="Sortby">
                                     <select title="_#= $htmlEncode(Srch.Res.rs_SortDescription) =#_" id="SortbySel" onchange="$getClientControl(this).sortOrRank(this.value);">
 <!--#_ 
@@ -302,10 +268,9 @@ _#-->
 <!--#_                          
                 }
                 var hasPersonalResults = false;
-                if(ctx.ClientControl.get_showPersonalFavorites()){
-
+                if(ctx.ClientControl.get_showPersonalFavorites()){                    
                     var pfTable = Srch.U.getTableOfType(ctx.ClientControl.get_currentResultTableCollection(), Microsoft.SharePoint.Client.Search.Query.KnownTableTypes.personalFavoriteResults);
-                    if(!$isNull(pfTable)){
+                    if(!$isNull(pfTable)){                        
                         var pfRows = pfTable[Srch.U.PropNames.resultRows];
                         if(!$isNull(pfRows) && pfRows.length > 0)
                         {
@@ -320,7 +285,7 @@ _#-->
 _#-->                
                                 <div class="ms-srch-result-personalResult">
                                     <div class="ms-srch-result-personalResult-prompt">_#= $htmlEncode(Srch.Res.qs_PersonalResultTitleSingular) =#_</div>                                    
-                                    <a id="PersonalResult" class="ms-textLarge" href="_#= $urlHtmlEncodeString(pfRow.Url) =#_">_#= Srch.U.trimTitle(pfTitle, Srch.U.titleTruncationLength, 2) =#_</a>
+                                    <a id="PersonalResult" class="ms-textLarge" href="_#= $urlHtmlEncode(pfRow.Url) =#_">_#= Srch.U.trimTitle(pfTitle, Srch.U.titleTruncationLength, 2) =#_</a>
                                 </div>
 <!--#_ 
                             }
@@ -336,13 +301,13 @@ _#-->
                             _#= String.format($htmlEncode(Srch.Res.rs_DidYouMean), dymHtml) =#_
                         </div>
 <!--#_ 
-                    }
+                    } 
                 }
                 if (Srch.U.isPageInEditMode()){
-                    var sourcesHtml = "<a href='" + $urlHtmlEncodeString(ctx.ScriptApplicationManager.get_resultSourcesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_ResultSources) + "</a>";
-                    var displayTemplatesHtml = "<a href='" + $urlHtmlEncodeString(ctx.ScriptApplicationManager.get_displayTemplatesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_DisplayTemplate) + "</a>";
-                    var resultTypesHtml = "<a href='" + $urlHtmlEncodeString(ctx.ScriptApplicationManager.get_resultTypesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_ResultType) + "</a>";
-                    var queryRulesHtml = "<a href='" + $urlHtmlEncodeString(ctx.ScriptApplicationManager.get_queryRulesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_QueryRules) + "</a>";
+                    var sourcesHtml = "<a href='" + $urlHtmlEncode(ctx.ScriptApplicationManager.get_resultSourcesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_ResultSources) + "</a>";
+                    var displayTemplatesHtml = "<a href='" + $urlHtmlEncode(ctx.ScriptApplicationManager.get_displayTemplatesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_DisplayTemplate) + "</a>";
+                    var resultTypesHtml = "<a href='" + $urlHtmlEncode(ctx.ScriptApplicationManager.get_resultTypesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_ResultType) + "</a>";
+                    var queryRulesHtml = "<a href='" + $urlHtmlEncode(ctx.ScriptApplicationManager.get_queryRulesUrl()) + "' target='_blank'>" + $htmlEncode(Srch.Res.rs_Edit_QueryRules) + "</a>";
                     var configureResultsUrl = "javascript:HelpWindowKey(\"WSSEndUser_ConfigureResultsWPInEditMode\")";
                     var configureResultsLink = "<a href=" + configureResultsUrl + ">" + $htmlEncode(Srch.Res.rs_Edit_ConfigureSearchResults_Link) + "</a>";  
 _#--> 
@@ -421,10 +386,9 @@ _#-->
                     </div>
 <!--#_ 
                 } 
-
                 if(ctx.ClientControl.get_showPaging()){
                     var pagingInfo = ctx.ClientControl.get_pagingInfo();
-                    if(!$isEmptyArray(pagingInfo)){
+                    if(!$isEmptyArray(pagingInfo)){ 
 _#-->
                         <ul id="Paging" class="ms-srch-Paging">
 <!--#_ 
@@ -432,37 +396,37 @@ _#-->
                             var pl = pagingInfo[i];
                             if(!$isNull(pl)) {
                                 var imagesUrl = GetThemedImageUrl('searchresultui.png');
-                                if(pl.startItem == -1) {
+                                if(pl.startItem == -1) { 
                                     var selfLinkId = "SelfLink_" + pl.pageNumber;
 _#-->
                                     <li id="PagingSelf"><a id="_#= $htmlEncode(selfLinkId) =#_">_#= $htmlEncode(pl.pageNumber) =#_</a></li>
 <!--#_ 
-                                } else if(pl.pageNumber == -1) {
-                                    var iconClass = Srch.U.isRTL() ? "ms-srch-pagingNext" : "ms-srch-pagingPrev";
+                                } else if(pl.pageNumber == -1) { 
+                                    var iconClass = Srch.U.isRTL() ? "ms-srch-pagingNext" : "ms-srch-pagingPrev";                                    
 _#-->
                                     <li id="PagingImageLink"><a id="PageLinkPrev" href="#" class="ms-commandLink ms-promlink-button ms-promlink-button-enabled ms-verticalAlignMiddle" title="_#= $htmlEncode(pl.title) =#_" onclick="$getClientControl(this).page(_#= $htmlEncode(pl.startItem) =#_);return Srch.U.cancelEvent(event);">
                                         <span class="ms-promlink-button-image">
-                                            <img src="_#= $urlHtmlEncodeString(imagesUrl) =#_" class="_#= $htmlEncode(iconClass) =#_" alt="_#= $htmlEncode(pl.title) =#_" />
+                                            <img src="_#= $urlHtmlEncode(imagesUrl) =#_" class="_#= $htmlEncode(iconClass) =#_" alt="_#= $htmlEncode(pl.title) =#_" />
                                         </span>
                                     </a></li>
 <!--#_ 
-                                } else if(pl.pageNumber == -2) {
+                                } else if(pl.pageNumber == -2) { 
                                     var iconClass = Srch.U.isRTL() ? "ms-srch-pagingPrev" : "ms-srch-pagingNext";
 _#-->
                                     <li id="PagingImageLink"><a id="PageLinkNext" href="#" class="ms-commandLink ms-promlink-button ms-promlink-button-enabled ms-verticalAlignMiddle" title="_#= $htmlEncode(pl.title) =#_" onclick="$getClientControl(this).page(_#= $htmlEncode(pl.startItem) =#_);return Srch.U.cancelEvent(event);">
                                         <span class="ms-promlink-button-image">
-                                            <img src="_#= $urlHtmlEncodeString(imagesUrl) =#_" class="_#= $htmlEncode(iconClass) =#_" alt="_#= $htmlEncode(pl.title) =#_" />
+                                            <img src="_#= $urlHtmlEncode(imagesUrl) =#_" class="_#= $htmlEncode(iconClass) =#_" alt="_#= $htmlEncode(pl.title) =#_" />
                                         </span>
                                     </a></li>
 <!--#_ 
-                                } else {
+                                } else { 
                                     var pageLinkId = "PageLink_" + pl.pageNumber;
 _#-->
                                     <li id="PagingLink"><a id="_#= $htmlEncode(pageLinkId) =#_" href="#" title="_#= $htmlEncode(pl.title) =#_" onclick="$getClientControl(this).page(_#= $htmlEncode(pl.startItem) =#_);return Srch.U.cancelEvent(event);">_#= $htmlEncode(pl.pageNumber) =#_</a></li>
 <!--#_ 
                                 }
                             }
-                        }
+                        } 
 _#-->
                         </ul>
 <!--#_ 
@@ -471,8 +435,8 @@ _#-->
 _#-->
 
                 <div class="ms-srch-resultFooter">
-<!--#_                 
-                    if(ctx.ClientControl.get_showResultCount() && ctx.DataProvider.get_totalRows() > 0){
+<!--#_              
+                    if(ctx.ClientControl.get_showResultCount() && ctx.DataProvider.get_totalRows() > 0){                        
                         var start = ctx.DataProvider.get_currentQueryState().s;
                         var resultsPerPage = ctx.DataProvider.get_resultsPerPage();
                         var totalRows = ctx.DataProvider.get_totalRows();
@@ -483,7 +447,7 @@ _#-->
                             _#= String.format($htmlEncode(countDisplayString), $htmlEncode(totalRows.localeFormat("N0"))) =#_
                         </div>
 <!--#_ 
-                    }
+                    }               
 _#-->
 
                     <ul id="ResultFooter">
@@ -500,21 +464,19 @@ _#-->
                             </li>
 <!--#_ 
                         }
-
                         if(ctx.ClientControl.get_showPreferencesLink()){
                             var preferencesUrl = ctx.ScriptApplicationManager.get_preferencesUrl();
                             if(!$isEmptyString(preferencesUrl)){ 
 _#-->
-                                <li id="Preferences"><a title="_#= $htmlEncode(Srch.Res.rs_Preferences) =#_" id="PreferencesLink" href="_#= $urlHtmlEncodeString(preferencesUrl) =#_">_#= $htmlEncode(Srch.Res.rs_Preferences) =#_</a></li>
+                                <li id="Preferences"><a title="_#= $htmlEncode(Srch.Res.rs_Preferences) =#_" id="PreferencesLink" href="_#= $urlHtmlEncode(preferencesUrl) =#_">_#= $htmlEncode(Srch.Res.rs_Preferences) =#_</a></li>
 <!--#_ 
                             }
                         }
-
                         if(ctx.ClientControl.get_showAdvancedLink()){
                             var advancedUrl = ctx.ClientControl.get_advancedUrl();
                             if(!$isEmptyString(advancedUrl)){ 
 _#-->
-                                <li id="Advanced"><a title="_#= $htmlEncode(Srch.Res.rs_Advanced) =#_" id="AdvancedLink" href="_#= $urlHtmlEncodeString(advancedUrl) =#_">_#= $htmlEncode(Srch.Res.rs_Advanced) =#_</a></li>
+                                <li id="Advanced"><a title="_#= $htmlEncode(Srch.Res.rs_Advanced) =#_" id="AdvancedLink" href="_#= $urlHtmlEncode(advancedUrl) =#_">_#= $htmlEncode(Srch.Res.rs_Advanced) =#_</a></li>
 <!--#_ 
                             }
                         }
@@ -522,10 +484,10 @@ _#-->
                     </ul>
                 </div>
 <!--#_ 
-            }
+            } 
 _#-->
         </div>
     </div>
+
 </body>
 </html>
-

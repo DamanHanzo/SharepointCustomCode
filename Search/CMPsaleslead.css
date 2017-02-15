@@ -1,0 +1,38 @@
+
+.headerRow {
+	margin-top: -20px;
+	width: 34.5%;
+	position: fixed;
+	border-radius: 14px;
+	height: 3%;
+}
+
+.header-col {
+	width: 25%;
+	display: inline-block;
+	border-left: 1px dotted;
+	padding-left: 2px;
+}
+
+.header-col:nth-child(2) {
+	margin-right: -10px;
+}
+
+.header-col:nth-child(3) {
+	padding-left: 3px;	
+}
+
+.header-col:nth-child(4) {
+	margin-left: -10px;
+	padding-left: 2px;
+	width: 23%;
+}
+
+.item-col {
+	width: 25%;
+	display: inline-block;
+}
+
+.item-col:nth-child(4) {
+	width: 23%;
+}

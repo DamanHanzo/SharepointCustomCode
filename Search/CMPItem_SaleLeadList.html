@@ -23,7 +23,9 @@
     <body>
     <script>
         $includeCSS(this.url,"font-awesome-4.7.0/css/font-awesome.min.css");
-        $includeCSS(this.url,"font-awesome-4.7.0/animate.css"); 
+        $includeCSS(this.url,"font-awesome-4.7.0/animate.css");
+        $includeCSS(this.url,"bootstrap-4.0.0-alpha.6-dist/css/bootrap.css"); 
+        RegisterSod("bootstrap.min.js","bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js");
     </script>
 
         <div id="Item_Default">
@@ -53,17 +55,42 @@
                         var todaysDate = Math.round((((new Date()/1000)/60)/60)/24);
                         if((todaysDate - createdDate)<= 4){
                         _#-->
-                            <strong class="Title_Button tooltip" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></strong>
-                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
-                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
-                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
-                            <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
+                        <div class="row">
+                            <div class="col">
+                                <strong class="Title_Button tooltip" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></strong>
+                            </div>
+                            <div class="col">
+                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
+                            </div>
+                            <div class="col">
+                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
+                            </div>
+                            <div>
+                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
+                            </div>
+<!--                             <div class="col">
+                                <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
+                            </div> -->
+                        </div>
                         <!--#_ } else { _#-->
-                        <strong class="Title_Button" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_</strong>
-                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
-                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
-                            <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
-                            <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
+                         <div class="row">
+                            <div class="col">
+                                <strong class="Title_Button" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_
+                                </strong>
+                            </div>
+                            <div class="col">
+                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
+                            </div>
+                            <div class="col">
+                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
+                            </div>
+                            <div>
+                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
+                            </div>
+                           <!--  <div class="col">
+                                <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
+                            </div> -->
+                        </div>
                         <!--#_ } _#-->
                         </div>
                     </div>
