@@ -1,3 +1,7 @@
+body {
+	font-family: Sans-Serif;
+}
+
 .container {
 	width: 100%;
 }
@@ -41,4 +45,11 @@
 	width: 55%;
 	display: inline-block;
 	float: right;
+}
+
+.tile:hover {
+	opacity: 0.4;
+	background: url('./pencil-logo.png') no-repeat;
+	background-position: center;
+	cursor: pointer;
 }
