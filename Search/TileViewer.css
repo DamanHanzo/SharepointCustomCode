@@ -1,0 +1,44 @@
+.container {
+	width: 100%;
+}
+
+.tileContainer {
+	width: 80%;
+}
+
+.tileRow {
+	width: 70%;
+	display: block;
+	padding: 10px;
+}
+
+.tile {
+	width: 22%;
+	background-color: #FAFAFA;
+	display: inline-block;
+	margin: 10px;
+}
+
+.tileTitle {
+	width: 100%;
+	display: block;
+	text-align: center;
+}
+
+.tileLogo {
+	width: 15%;
+	display: inline-block;
+	margin-top: 40px;
+}
+
+.tileLogo #logo {
+	max-width: 150px;
+	max-height: 40px;
+	float: left;
+}
+
+.tileBody {
+	width: 55%;
+	display: inline-block;
+	float: right;
+}
