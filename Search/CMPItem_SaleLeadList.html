@@ -1,19 +1,19 @@
 
-<html>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 <head>
     <title>Sales Leads List Display Item</title>
     <!--[if gte mso 9]><xml>
     <mso:CustomDocumentProperties>
     <mso:TemplateHidden msdt:dt="string">0</mso:TemplateHidden>
-    <mso:MasterPageDescription msdt:dt="string">Displays the default result item template.</mso:MasterPageDescription>
-    <mso:ContentTypeId msdt:dt="string">0x0101002039C03B61C64EC4A04F5361F385106603</mso:ContentTypeId>
+    <mso:MasterPageDescription msdt:dt="string"></mso:MasterPageDescription>
+    <mso:ContentTypeId msdt:dt="string">0x0101002039C03B61C64EC4A04F5361F38510660300F6CCBAB87CC85E4390938225C925B79E</mso:ContentTypeId>
     <mso:TargetControlType msdt:dt="string">;#SearchResults;#</mso:TargetControlType>
     <mso:HtmlDesignAssociated msdt:dt="string">1</mso:HtmlDesignAssociated>
-    <mso:ManagedPropertyMapping msdt:dt="string">'SalesLeadFullName':'SalesLeadFullName','SalesLeadFacility':'SalesLeadFacility','SalesLeadDepartment':'SalesLeadDepartment','SalesLeadJobtitle':'SalesLeadJobtitle','OWS_URL':'OWS_URL','ParentLink':'ParentLink','FileType':'FileType','IsContainer':'IsContainer','SecondaryFileExtension':'SecondaryFileExtension','DisplayAuthor':'DisplayAuthor','SiteTitle':'SiteTitle','Filename':'Filename','ContentType':'ContentType','SPSiteURL':'SPSiteURL','ListURL':'ListURL','ListItemID':'ListItemID','SalesLeadSalesRep':'SalesLeadSalesRep','Created':'Created'</mso:ManagedPropertyMapping>
+    <mso:ManagedPropertyMapping msdt:dt="string">&#39;SalesLeadFullName&#39;:&#39;SalesLeadFullName&#39;,&#39;SalesLeadFacility&#39;:&#39;SalesLeadFacility&#39;,&#39;SalesLeadDepartment&#39;:&#39;SalesLeadDepartment&#39;,&#39;SalesLeadJobtitle&#39;:&#39;SalesLeadJobtitle&#39;,&#39;OWS_URL&#39;:&#39;OWS_URL&#39;,&#39;ParentLink&#39;:&#39;ParentLink&#39;,&#39;FileType&#39;:&#39;FileType&#39;,&#39;IsContainer&#39;:&#39;IsContainer&#39;,&#39;SecondaryFileExtension&#39;:&#39;SecondaryFileExtension&#39;,&#39;DisplayAuthor&#39;:&#39;DisplayAuthor&#39;,&#39;SiteTitle&#39;:&#39;SiteTitle&#39;,&#39;Filename&#39;:&#39;Filename&#39;,&#39;ContentType&#39;:&#39;ContentType&#39;,&#39;SPSiteURL&#39;:&#39;SPSiteURL&#39;,&#39;ListURL&#39;:&#39;ListURL&#39;,&#39;ListItemID&#39;:&#39;ListItemID&#39;,&#39;SalesLeadSalesRep&#39;:&#39;SalesLeadSalesRep&#39;,&#39;Created&#39;:&#39;Created&#39;,&#39;RefinableString07:&#39;RefinableString07&#39;,&#39;RefinableString08:&#39;RefinableString08&#39;,&#39;RefinableString09:&#39;RefinableString09&#39;,&#39;RefinableString10:&#39;RefinableString10&#39;</mso:ManagedPropertyMapping>
     <mso:_dlc_DocId msdt:dt="string">2PPW52Q5PMDV-6-317</mso:_dlc_DocId>
     <mso:_dlc_DocIdItemGuid msdt:dt="string">8bfd50a1-79b3-4cbf-a4b2-f21c58476e0f</mso:_dlc_DocIdItemGuid>
     <mso:_dlc_DocIdUrl msdt:dt="string">http://spdev-2103.cloudapp.net/_layouts/15/DocIdRedir.aspx?ID=2PPW52Q5PMDV-6-317, 2PPW52Q5PMDV-6-317</mso:_dlc_DocIdUrl>
-    <mso:HtmlDesignStatusAndPreview msdt:dt="string">http://spdev-2103.cloudapp.net/_catalogs/masterpage/Display Templates/Search/Custom_Item.html, Conversion successful.</mso:HtmlDesignStatusAndPreview>
+    <mso:HtmlDesignStatusAndPreview msdt:dt="string">https://centurionmp.sharepoint.com/sites/sales/_catalogs/masterpage/Display Templates/Search/CMPItem_SaleLeadList.html, Conversion successful.</mso:HtmlDesignStatusAndPreview>
     <mso:HtmlDesignConversionSucceeded msdt:dt="string">True</mso:HtmlDesignConversionSucceeded>
     <mso:CrawlerXSLFile msdt:dt="string"></mso:CrawlerXSLFile>
     <mso:HtmlDesignPreviewUrl msdt:dt="string"></mso:HtmlDesignPreviewUrl>
@@ -24,8 +24,7 @@
     <script>
         $includeCSS(this.url,"font-awesome-4.7.0/css/font-awesome.min.css");
         $includeCSS(this.url,"font-awesome-4.7.0/animate.css");
-        $includeCSS(this.url,"bootstrap-4.0.0-alpha.6-dist/css/bootrap.css"); 
-        RegisterSod("bootstrap.min.js","bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js");
+        $includeCSS(this.url,"CMPsaleslead.css");
     </script>
 
         <div id="Item_Default">
@@ -36,60 +35,63 @@
                     var hoverId = id + Srch.U.Ids.hover;
                     var hoverUrl = "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default_HoverPanel.js";
                     $setResultItem(itemId, ctx.CurrentItem);
-                    console.log(ctx);
                     ctx.CurrentItem.csr_Icon = Srch.U.getIconUrlByFileExtension(ctx.CurrentItem)
                     ctx.currentItem_ShowHoverPanelCallback = Srch.U.getShowHoverPanelCallback(itemId, hoverId, hoverUrl);
                     ctx.currentItem_HideHoverPanelCallback = Srch.U.getHideHoverPanelCallback();
-                    	
+                    var availableSorts = ctx.DataProvider.get_availableSorts();
+                            availableSorts.push({"name":"Name_DEC","sorts":[{"p":"RefinableString07","d":0}]});
+                            availableSorts.push({"name":"Name_ASC","sorts":[{"p":"RefinableString07","d":1}]});
+                            availableSorts.push({"name":"Facility_DEC","sorts":[{"p":"RefinableString08","d":0}]});
+                            availableSorts.push({"name":"Facility_ASC","sorts":[{"p":"RefinableString08","d":1}]});
+                            availableSorts.push({"name":"Department_DEC","sorts":[{"p":"RefinableString09","d":0}]});
+                            availableSorts.push({"name":"Department_ASC","sorts":[{"p":"RefinableString09","d":1}]});
+                            availableSorts.push({"name":"ProductOfInterest_DEC","sorts":[{"p":"RefinableString10","d":0}]});
+                            availableSorts.push({"name":"ProductOfInterest_ASC","sorts":[{"p":"RefinableString10","d":1}]});
+                            ctx.DataProvider.set_availableSorts(availableSorts);
             _#-->
-            <div id="_#= $htmlEncode(itemId) =#_" name="Item" data-displaytemplate="DefaultItem" class="ms-srch-item" onmouseover="_#= ctx.currentItem_ShowHoverPanelCallback =#_" onmouseout="_#= ctx.currentItem_HideHoverPanelCallback =#_" style="padding-bottom: 15px; margin-bottom: 15px; border-bottom-color: #d0d0d0; border-bottom-width: 1px; border-bottom-style: dotted;">
+            <div id="_#= $htmlEncode(itemId) =#_" name="Item" data-displaytemplate="DefaultItem" class="ms-srch-item" onmouseover="_#= ctx.currentItem_ShowHoverPanelCallback =#_" onmouseout="_#= ctx.currentItem_HideHoverPanelCallback =#_" style="padding-bottom: 15px; margin-bottom: 15px; border-bottom-color: #d0d0d0; border-bottom-width: 1px; border-bottom-style: dotted; width: auto;">
                 <div id="_#= $htmlEncode(hoverId) =#_" class="ms-srch-hover-outerContainer"></div>
-					<div id="Data">
+                    <div id="Data">
                         <div class="gm-agg-col-data-icn">
                         <!--#_ 
-                         var pathURL = "https://centurionmp.sharepoint.com/sites/sales/Lists/SalesLeads/EditForm.aspx?ID="+ctx.CurrentItem.ListItemID+"&Source=https%3A%2F%2Fcenturionmp%2Esharepoint%2Ecom%2Fsites%2Fsales%2FSitePages%2FSearchSalesLeads%2Easpx"; 
+                        var pathURL = "https://centurionmp.sharepoint.com/sites/sales/Lists/SalesLeads/EditForm.aspx?ID="+ctx.CurrentItem.ListItemID+"&Source=https%3A%2F%2Fcenturionmp%2Esharepoint%2Ecom%2Fsites%2Fsales%2FSitePages%2FSearchSalesLeads%2Easpx"; 
                         ctx.CurrentItem.SalesLeadFullName = ctx.CurrentItem.SalesLeadFullName.substring(8);
                         ctx.CurrentItem.ListURL = pathURL; 
-                        console.log(ctx.CurrentItem);
                         var createdDate = Math.round((((ctx.CurrentItem.Created/1000)/60)/60)/24);
                         var todaysDate = Math.round((((new Date()/1000)/60)/60)/24);
-                        if((todaysDate - createdDate)<= 4){
+                        if((todaysDate - createdDate)<= 5){
                         _#-->
-                        <div class="row">
-                            <div class="col">
-                                <strong class="Title_Button tooltip" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></strong>
+                        <div class="item-container">
+                            <div class="item-col">
+                                <a href="_#=ctx.CurrentItem.ListURL=#_"><i class="fa fa-pencil fg-2x" style="color: black; cursor: pointer;" title="Edit Lead" aria-hidden="true"></i></a>
+                                <span class="Title_Button"  href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></span>
                             </div>
-                            <div class="col">
-                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
+                            <div class="item-col">
+                                <p>_#=ctx.CurrentItem.RefinableString08=#_</p>
                             </div>
-                            <div class="col">
-                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
+                            <div class="item-col">
+                                <p>_#=ctx.CurrentItem.RefinableString09=#_</p>
                             </div>
-                            <div>
-                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
+                            <div class="item-col">
+                                <p>_#=ctx.CurrentItem.RefinableString10=#_</p>
                             </div>
-<!--                             <div class="col">
-                                <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
-                            </div> -->
                         </div>
                         <!--#_ } else { _#-->
-                         <div class="row">
-                            <div class="col">
-                                <strong class="Title_Button" style="padding-left:0px; margin-top: 0; margin-bottom: 0;" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_
-                                </strong>
+                         <div class="item-container">
+                            <div class="item-col">
+                                <a href="_#=ctx.CurrentItem.ListURL=#_"><i class="fa fa-pencil fg-2x" style="color: black; cursor: pointer;" title="Edit Lead" aria-hidden="true"></i></a>
+                                <span class="Title_Button" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_
+                                </span>
                             </div>
-                            <div class="col">
-                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadFacility=#_</p>
+                            <div class="item-col">
+                                <p>_#=ctx.CurrentItem.RefinableString08=#_</p>
                             </div>
-                            <div class="col">
-                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadDepartment=#_</p>
+                            <div class="item-col">
+                                <p>_#=ctx.CurrentItem.RefinableString09=#_</p>
                             </div>
-                            <div>
-                                <p style="padding-left:6px; margin-top: 0; margin-bottom: 0;">_#=ctx.CurrentItem.SalesLeadJobtitle=#_</p>
+                            <div class="item-col">
+                                <p>_#=ctx.CurrentItem.RefinableString10=#_</p>
                             </div>
-                           <!--  <div class="col">
-                                <a href="_#=ctx.CurrentItem.ListURL=#_" style="padding-left:6px; margin-top: 0; margin-bottom: 0;">Edit Lead</a>
-                            </div> -->
                         </div>
                         <!--#_ } _#-->
                         </div>

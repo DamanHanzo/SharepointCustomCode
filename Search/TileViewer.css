@@ -17,10 +17,11 @@ body {
 }
 
 .tile {
-	width: 22%;
+	width: 24%;
 	background-color: #FAFAFA;
 	display: inline-block;
 	margin: 10px;
+	z-index: 1;
 }
 
 .tileTitle {
@@ -30,21 +31,21 @@ body {
 }
 
 .tileLogo {
-	width: 15%;
+	width: 10%;
 	display: inline-block;
-	margin-top: 40px;
-}
-
-.tileLogo #logo {
-	max-width: 150px;
+	margin-top: 45px;
+	margin-right: 10px;
+	max-width: 100px;
 	max-height: 40px;
 	float: left;
+	background: url('./Captain_Planet_logo.png') no-repeat;
 }
 
 .tileBody {
-	width: 55%;
+	width: 53%;
 	display: inline-block;
 	float: right;
+	padding-left: 10px;
 }
 
 .tile:hover {

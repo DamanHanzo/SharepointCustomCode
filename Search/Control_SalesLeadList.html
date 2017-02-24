@@ -25,15 +25,20 @@
             $includeCSS(this.url,"font-awesome-4.7.0/css/font-awesome.min.css");
             $includeCSS(this.url,"font-awesome-4.7.0/animate.css");
             $includeCSS(this.url,"CMPsaleslead.css");
+            RegisterSod('jquery-3.1.1.js', 'https://code.jquery.com/jquery-3.1.1.js')
+                EnsureScriptFunc('jquery-3.1.1.js', 'jQuery');
     </script>
     <div id="Control_SearchResults">
 <!--#_
+        
+        $(".ms-ref-unselSec .ms-ref-unsel-shortList #OtherValue").hide(); //hide the other value checkbox in the refiners
+
         if (Srch.U.shouldAnimate(ctx.DataProvider)){            
             Srch.U.hideElement(ctx.ClientControl.get_element());
             ctx.OnPostRender = function(){ Srch.U.animateResults(ctx.ClientControl, ctx.DataProvider.get_userAction()); }; 
         }
 _#-->                    
-        <div class="ms-srch-result alt-style" style="margin-right:30em;" id="Result" name="Control">
+        <div class="ms-srch-result alt-style" style="margin-right:30em; margin-top: 0px !important;" id="Result" name="Control">
            
 <!--#_ 
             var arwImageUrl = GetThemedImageUrl('ecbarw.png');
@@ -218,23 +223,54 @@ _#-->
                         </div>                                
 <!--#_
                     }
-_#-->                    
+_#-->                
                     </div>
-                     <div id="Headers">
+                    <div id="Headers">
                         <div class="headerRow">
-                            <div class="header-col"><strong>Name</strong></div>
-                            <div class="header-col"><strong>Facility</strong></div>
-                            <div class="header-col"><strong>Department</strong></div>
-                            <div class="header-col"><strong>Job Title</strong></div>
+                            <div class="header-col"><strong>Name</strong>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('Name_DEC');return false;">
+                                    <img src="/_layouts/images/sortdown.gif" />
+                                </a>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('Name_ASC');return false;">
+                                    <img src="/_layouts/images/sortup.gif" />
+                                </a>
+                            </div>
+                            <div class="header-col"><strong>Facility</strong>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('Facility_DEC');return false;">
+                                    <img src="/_layouts/images/sortdown.gif" />
+                                </a>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('Facility_ASC');return false;">
+                                    <img src="/_layouts/images/sortup.gif" />
+                                </a>
+                            </div>
+                            <div class="header-col"><strong>Department</strong>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('Department_DEC');return false;">
+                                    <img src="/_layouts/images/sortdown.gif" />
+                                </a>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('Department_ASC');return false;">
+                                    <img src="/_layouts/images/sortup.gif" />
+                                </a>
+                            </div>
+                            <div class="header-col"><strong>Product Of Interest</strong>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('ProductOfInterest_DEC');return false;">
+                                    <img src="/_layouts/images/sortdown.gif" />
+                                </a>
+                                <a href="#" onclick="$getClientControl(this).sortOrRank('ProductOfInterest_ASC');return false;">
+                                    <img src="/_layouts/images/sortup.gif" />
+                                </a>
+                            </div>
                         </div>    
                     </div>
+
 <!--#_
                 }
                 if(showSortOptions){
                     var resultHeaderClassNoEncode = "ms-metadata";
                     var availableSorts = ctx.DataProvider.get_availableSorts();
 _#-->
+
                     <div id="ResultHeader" class="_#= resultHeaderClassNoEncode =#_">
+
              
                         <ul id="Actions">                
                                 <li id="Sortby">
@@ -338,12 +374,16 @@ _#-->
                     _#= ctx.RenderGroups(ctx) =#_
 <!--#_
                     if(ctx.ClientControl.get_shouldShowNoResultMessage()){
+                        if($("#NoResult").css('display') != 'none'){
+                            $("#Headers").hide();
+                        }
 _#-->
                         <div id="NoResult">
 <!--#_
                             var emptyMessage = ctx.ClientControl.get_emptyMessage();
                             if ($isEmptyString(emptyMessage))
                             {
+
 _#-->
                                 <div class="ms-textLarge ms-srch-result-noResultsTitle">_#= $htmlEncode(Srch.Res.rs_NoResultsTitle) =#_</div>
                                 <div>_#= $htmlEncode(Srch.Res.rs_NoResultsSuggestions) =#_</div>
@@ -354,12 +394,14 @@ _#-->
                                     <li>_#= $htmlEncode(Srch.Res.rs_NoResultsFewerTerms) =#_</li>
 <!--#_
                                     if(ctx.DataProvider.get_currentQueryState().r){
+
 _#-->
                                         <li>_#= $htmlEncode(Srch.Res.rs_NoResultsRefiners) =#_</li>
 <!--#_
                                     }
                                     var searchTipsUrl = "javascript:HelpWindowKey(\"WSSEndUser_SearchTips\")";
                                     var searchTipsLink = "<a href=" + searchTipsUrl + ">" + $htmlEncode(Srch.Res.rs_NoResultsTips_Link) + "</a>";
+
 _#-->
                                     <li>_#= String.format($htmlEncode(Srch.Res.rs_NoResultsTips), searchTipsLink) =#_</li>
                                 </ul>
@@ -476,7 +518,7 @@ _#-->
                             var advancedUrl = ctx.ClientControl.get_advancedUrl();
                             if(!$isEmptyString(advancedUrl)){ 
 _#-->
-                                <li id="Advanced"><a title="_#= $htmlEncode(Srch.Res.rs_Advanced) =#_" id="AdvancedLink" href="_#= $urlHtmlEncode(advancedUrl) =#_">_#= $htmlEncode(Srch.Res.rs_Advanced) =#_</a></li>
+                                <!-- <li id="Advanced"><a title="_#= $htmlEncode(Srch.Res.rs_Advanced) =#_" id="AdvancedLink" href="_#= $urlHtmlEncode(advancedUrl) =#_">_#= $htmlEncode(Srch.Res.rs_Advanced) =#_</a></li> -->
 <!--#_ 
                             }
                         }

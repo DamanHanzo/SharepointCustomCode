@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 	<title>Tile Viewer</title>
 	<link rel=stylesheet href="TileViewer.css">
 	<link rel=stylesheet href="font-awesome-4.7.0/animate.css">
 	<link rel=stylesheet href="font-awesome-4.7.0/css/font-awesome.min.css">
-	<script>
-		function linker(){
-			window.location.href = "http://www.google.com";
-		}
-	</script>
+	<script src="jquery.min.js"></script>
+	<script type="text/javascript">
+		$("div#tiler").on("click", function() {
+			alert("Hello World!");
+		});
+	</script>	
 </head>
 <body>
 	<div class="container">
 		<div class="tileContainer">
 			<div class="tileRow">
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -28,12 +30,12 @@
 						<p>Job Title: Other</p>
 					</div>
 				</div>
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -41,12 +43,12 @@
 						<p>Job Title: Other</p>
 					</div>
 				</div>
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -56,12 +58,12 @@
 				</div>
 			</div>
 		<div class="tileRow">
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -69,12 +71,12 @@
 						<p>Job Title: Other</p>
 					</div>
 				</div>
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -82,12 +84,12 @@
 						<p>Job Title: Other</p>
 					</div>
 				</div>
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -96,13 +98,13 @@
 					</div>
 				</div>
 			</div>
-						<div class="tileRow">
-				<div class="tile" onclick="linker()">
+			<div class="tileRow">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -110,12 +112,12 @@
 						<p>Job Title: Other</p>
 					</div>
 				</div>
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -123,12 +125,12 @@
 						<p>Job Title: Other</p>
 					</div>
 				</div>
-				<div class="tile" onclick="linker()">
+				<div class="tile" id="tiler">
 					<div class="tileTitle">
 						<b>Captain Planet</b>
 					</div>
 					<div class="tileLogo">
-						<img src="./Captain_Planet_logo.png" id="logo" alt="Logo">
+						<!-- <img src="./Captain_Planet_logo.png" id="logo" alt="Logo"> -->
 					</div>
 					<div class="tileBody">
 						<p>Facility: CHQ</p>
@@ -139,6 +141,5 @@
 			</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>
