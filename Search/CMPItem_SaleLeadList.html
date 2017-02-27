@@ -54,11 +54,22 @@
                     <div id="Data">
                         <div class="gm-agg-col-data-icn">
                         <!--#_ 
+                        function formatFullName(strg) {
+                            var fullName = strg.substring(8).split(" ");
+                            String.prototype.capitalize = function() {
+                                return this.charAt(0).toUpperCase() + this.slice(1);
+                            }
+                            var firstName = fullName[0].toLowerCase().capitalize();
+                            var lastName = fullName[1].toLowerCase().capitalize();
+                            fullName = firstName+" "+lastName;
+                            return fullName;
+                        }
                         var pathURL = "https://centurionmp.sharepoint.com/sites/sales/Lists/SalesLeads/EditForm.aspx?ID="+ctx.CurrentItem.ListItemID+"&Source=https%3A%2F%2Fcenturionmp%2Esharepoint%2Ecom%2Fsites%2Fsales%2FSitePages%2FSearchSalesLeads%2Easpx"; 
-                        ctx.CurrentItem.SalesLeadFullName = ctx.CurrentItem.SalesLeadFullName.substring(8);
+                        ctx.CurrentItem.SalesLeadFullName = formatFullName(ctx.CurrentItem.SalesLeadFullName);
                         ctx.CurrentItem.ListURL = pathURL; 
                         var createdDate = Math.round((((ctx.CurrentItem.Created/1000)/60)/60)/24);
                         var todaysDate = Math.round((((new Date()/1000)/60)/60)/24);
+                        console.log(ctx.CurrentItem);
                         if((todaysDate - createdDate)<= 5){
                         _#-->
                         <div class="item-container">
