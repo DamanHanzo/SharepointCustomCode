@@ -1,0 +1,14 @@
+Stage:Notify Owner/Requestor
+	If Current Item:Initial Start equals 1
+		If Current Item:Project Status equals (02) Approved as CR
+		or Current Item:Project Status equals (04) Pipeline
+		or Current Item:Project Status equals (01) IT Review
+			Email Current Item:Assigned To
+			Email Current Item:Requestor
+			Set AssignedToCompare to Current Item:Assigned To
+			Set Initial Start to 0
+	If Current Item:Assigned To not equals Current Item:AssignedToCompare
+	and Current Item:Initial Start equals 0
+		Email Current Item:Assigned To
+Transition to stage
+	Go to End of Workflow

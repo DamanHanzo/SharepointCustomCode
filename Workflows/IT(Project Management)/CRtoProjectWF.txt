@@ -1,0 +1,4 @@
+Stage:Create Project from CR and Email Manager
+	Create item in Projects (Output to Variable: create )
+Transition to stage
+	Go to End of Workflow

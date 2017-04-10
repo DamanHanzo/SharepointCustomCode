@@ -1,0 +1,21 @@
+Stage:Vacation Request
+	Set Requestor to Current Item:Created By
+	Set Status to Pending Approval
+	Set Workflow Status to Pending Approval
+	Step: Assigning a task
+		Add 0 months, 3 days, 0 hours, 0 minutes to Today (Output to Variable: DueDate )
+		Set Variable: iTaskID to Current Item:ID
+		Calculate Variable: iTaskID minus 23 (Output to Variable: calc1 )
+		Assign a task to McInroy, Kim (Task outcome to Variable: Outcome | Task ID to Variable: TaskID )
+	Step: Sending Response to Requestor and creating a calender event
+		If Variable: Outcome equals Approved
+			Set Workflow Status to Approved
+			Set Status to Approved
+			Email Current Item:Created By
+			Create item in CS Calendar (Output to Variable: create )
+		Else
+			Email Current Item:Created By
+			Set Workflow Status to Rejected
+			Set Status to Rejected
+Transition to stage
+	Go to End of Workflow
