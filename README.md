@@ -1,3 +1,3 @@
-#Sharepoint Custom Code
+# Sharepoint Custom Code
 
-Sharepoint dev repo
+- Any/all custom developement in sharepoint(centurionconnect), resides in this repo.
