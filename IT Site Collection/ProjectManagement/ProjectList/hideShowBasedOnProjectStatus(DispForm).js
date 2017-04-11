@@ -1,6 +1,6 @@
 <script src="/SiteAssets/js/jquery.min.js"></script>
 <script>
-function hideShowElems(){
+$(document).ready(function(){
 	var fieldsToHide = ["Start Date", "Original End Date", "Target End Date", "Original IT Effort", "Target End Date", "Original IT Effort",
 	         "Estimated IT Effort To Complete", "Project Cost", "IT Group", "IT Team Members", "Business Team Members", "Contractor Involvement", 
 	         "Status Updates"];
@@ -16,15 +16,5 @@ function hideShowElems(){
 			}
 		});
 	}
-}
-
-window.onload = function() {
-    if (window.jQuery) {  
-        // jQuery is loaded  
-       hideShowElems();
-    } else {
-        // jQuery is not loaded
-        alert("Doesn't Work");
-    }
-}
+});
 </script>
