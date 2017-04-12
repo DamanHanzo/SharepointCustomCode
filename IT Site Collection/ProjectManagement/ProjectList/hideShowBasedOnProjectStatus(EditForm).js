@@ -2,12 +2,12 @@
 <script>
 $(document).ready(function(){
 	function hideShowElems(){
-		var fieldsToHide = ["Start Date", "Original End Date", "Target End Date", "Original IT Effort", "Target End Date", "Original IT Effort",
+		var fieldsToHide = ["Start Date", "Original End Date", "Original IT Effort", "Original IT Effort",
 		         "Estimated IT Effort To Complete", "Project Cost", "IT Group", "IT Team Members", "Business Team Members", "Contractor Involvement", 
 		         "Status Updates"];
-		var projStatus = $(".ms-formtable tbody tr td.ms-formbody span select:eq(1)").val();
+		var projStatus = $(".ms-RadioText > input:eq(0)").is(':checked');
 		var formLabel = $(".ms-formtable tbody tr td.ms-formlabel span.ms-h3.ms-standardheader");
-		if(projStatus == "(01) IT Review" || projStatus == "(02) Approved as CR"){
+		if(projStatus == true){
 			formLabel.each(function(){
 				var labeltext = $(this).text().trim(" ");
 				for(i=0; i<fieldsToHide.length; i++){
@@ -23,7 +23,7 @@ $(document).ready(function(){
 		}
 	}
 	hideShowElems();
-	$(".ms-formtable tbody tr td.ms-formbody span select:eq(1)").on("change", function(){
+	$(".ms-RadioText > input").on("change", function(){
        		hideShowElems();
 	});
 });
