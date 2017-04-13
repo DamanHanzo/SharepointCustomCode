@@ -1,0 +1,5 @@
+Stage:Stage 1
+	If Current Item:Status Updates matches regular expression .+
+		Set LastUpdate to Current Item:Status Updates
+Transition to stage
+	Go to End of Workflow
