@@ -2,7 +2,7 @@
 <script>
 $(document).ready(function(){
 	var fieldsToHide = ["Start Date", "Original End Date", "Original IT Effort", "Original IT Effort",
-	         "Estimated IT Effort To Complete", "Project Cost", "IT Group", "IT Team Members", "Business Team Members", "Contractor Involvement", 
+	         "Estimated IT Effort To Complete", "Project Cost", "IT Team Members", "Business Team Members", "Contractor Involvement", 
 	         "Status Updates"];
 	var projStatus = $("#SPFieldChoice").text().trim(" ");
 	var formLabel = $(".ms-formtable tbody tr td.ms-formlabel span.ms-h3.ms-standardheader");
