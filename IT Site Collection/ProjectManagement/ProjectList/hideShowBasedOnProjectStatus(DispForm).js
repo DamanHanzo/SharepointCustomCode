@@ -15,5 +15,30 @@ $(document).ready(function(){
 			}
 		});
 	}
+var toggleMinHeight = $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height(),
+    duration = 2000,
+    easing = 'swing';
+var hideShow = "<a href='#' id='hideShow'>Show More</a>";
+$(hideShow).insertAfter($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div"));
+$("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").css("overflow", "hidden"); 
+if($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height() > 150){
+    $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate({
+        'height': 150
+    }, duration, easing);
+}
+$("#hideShow").on("click", function(){
+    if($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height() > 150){
+        $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate({
+            'height': 150
+        }, duration, easing);
+        $("#hideShow").text("Show More");
+    } else {
+        $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate(
+         {
+             'height' : toggleMinHeight
+        }, duration, easing);
+        $("#hideShow").text("Show Less");
+    }
+});  
 });
 </script>

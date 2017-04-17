@@ -26,31 +26,31 @@ $(document).ready(function(){
        		hideShowElems();
 	});
 
-var toggleMinHeight = 150,
+var toggleMinHeight = $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height(),
     duration = 2000,
     easing = 'swing';
-$("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").css("overflow", "hidden");    
-$("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").each(
-    function(){
-        $(this).attr('data-height',$(this).height());
-    }).click(
-    function(){
-        var curH = $(this).height();
-        if ($(this).is(':animated')){
-            return false;
-        }
-        else if (curH == $(this).attr('data-height')) {
-            $(this).animate(
-                {
-                    'height' : toggleMinHeight
-                }, duration, easing);
-        }
-        else if (curH == toggleMinHeight){
-            $(this).animate(
-                {
-                    'height' : $(this).attr('data-height')
-                }, duration, easing);
-        }
-    });
-});
+var hideShow = "<a href='#' id='hideShow'>Show More</a>";
+$(hideShow).insertAfter($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div"));
+$("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").css("overflow", "hidden"); 
+if($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height() > 150){
+    $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate({
+        'height': 150
+    }, duration, easing);
+}
+$("#hideShow").on("click", function(){
+    if($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height() > 150){
+        $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate({
+            'height': 150
+        }, duration, easing);
+        $("#hideShow").text("Show More");
+    } else {
+        $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate(
+         {
+             'height' : toggleMinHeight
+        }, duration, easing);
+        $("#hideShow").text("Show Less");
+    }
+});  
+
+ });
 </script>
