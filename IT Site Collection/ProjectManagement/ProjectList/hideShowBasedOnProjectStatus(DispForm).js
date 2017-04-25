@@ -15,7 +15,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-var toggleMinHeight = $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height(),
+var toggleMinHeight = $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td.ms-formbody > div").height(),
     duration = 2000,
     easing = 'swing';
 var hideShow = "<a href='#' id='hideShow'>Show More</a>";

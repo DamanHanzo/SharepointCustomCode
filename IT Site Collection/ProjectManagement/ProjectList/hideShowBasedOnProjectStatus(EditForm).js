@@ -26,25 +26,25 @@ $(document).ready(function(){
        		hideShowElems();
 	});
 
-var toggleMinHeight = $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height(),
+var toggleMinHeight = $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").height(),
     duration = 2000,
     easing = 'swing';
 var hideShow = "<a href='#' id='hideShow'>Show More</a>";
-$("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").css("overflow", "hidden"); 
-if($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height() > 170){
-    $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate({
+$("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").css("overflow", "hidden"); 
+if($("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").height() > 170){
+    $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").animate({
         'height': 170
     }, 500, easing);
-	$(hideShow).insertAfter($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div"));
+	$(hideShow).insertAfter($("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div"));
 }
 $("#hideShow").on("click", function(){
-    if($("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").height() > 170){
-        $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate({
+    if($("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").height() > 170){
+        $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").animate({
             'height': 170
         }, duration, easing);
         $("#hideShow").text("Show More");
     } else {
-        $("#part1 > table.ms-formtable > tbody > tr:nth-child(22) > td:nth-child(2) > div").animate(
+        $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").animate(
          {
              'height' : toggleMinHeight
         }, duration, easing);
