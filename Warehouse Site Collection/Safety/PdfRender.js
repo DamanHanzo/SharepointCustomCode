@@ -5,7 +5,7 @@ $(document).ready(function(){
 	.done(function(data){
 		var itemsCount= data.d.results.length;
 		var items = data.d.results;
-		var itemFileURI = data.d.results[itemsCount-1].File.__deferred.uri;
+		var itemFileURI = items[itemsCount-1].File.__deferred.uri;
 		getJson(itemFileURI).done(function(data){
 			linkToPdf = data.d.ServerRelativeUrl;
 			var embedLocation = $("embed#pdfEmbed").parent().parent();
