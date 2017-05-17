@@ -26,25 +26,25 @@ $(document).ready(function(){
        		hideShowElems();
 	});
 
-var toggleMinHeight = $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").height(),
+var toggleMinHeight = $("span.ms-noWrap").parent().height(),
     duration = 2000,
     easing = 'swing';
 var hideShow = "<a href='#' id='hideShow'>Show More</a>";
-$("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").css("overflow", "hidden"); 
-if($("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").height() > 170){
-    $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").animate({
+$("span.ms-noWrap").parent().css("overflow", "hidden"); 
+if($("span.ms-noWrap").parent().height() > 170){
+    $("span.ms-noWrap").parent().animate({
         'height': 170
     }, 500, easing);
-	$(hideShow).insertAfter($("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div"));
+	$(hideShow).insertAfter($("span.ms-noWrap").parent());
 }
 $("#hideShow").on("click", function(){
-    if($("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").height() > 170){
-        $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").animate({
+    if($("span.ms-noWrap").parent().height() > 170){
+        $("span.ms-noWrap").parent().animate({
             'height': 170
         }, duration, easing);
         $("#hideShow").text("Show More");
     } else {
-        $("#part1 > table.ms-formtable > tbody > tr:nth-child(23) > td:eq(1) > div").animate(
+        $("span.ms-noWrap").parent().animate(
          {
              'height' : toggleMinHeight
         }, duration, easing);

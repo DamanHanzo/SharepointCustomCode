@@ -9,7 +9,7 @@
     <mso:ContentTypeId msdt:dt="string">0x0101002039C03B61C64EC4A04F5361F38510660300F6CCBAB87CC85E4390938225C925B79E</mso:ContentTypeId>
     <mso:TargetControlType msdt:dt="string">;#SearchResults;#</mso:TargetControlType>
     <mso:HtmlDesignAssociated msdt:dt="string">1</mso:HtmlDesignAssociated>
-    <mso:ManagedPropertyMapping msdt:dt="string">&#39;SalesLeadFullName&#39;:&#39;SalesLeadFullName&#39;,&#39;SalesLeadFacility&#39;:&#39;SalesLeadFacility&#39;,&#39;SalesLeadDepartment&#39;:&#39;SalesLeadDepartment&#39;,&#39;SalesLeadJobtitle&#39;:&#39;SalesLeadJobtitle&#39;,&#39;OWS_URL&#39;:&#39;OWS_URL&#39;,&#39;ParentLink&#39;:&#39;ParentLink&#39;,&#39;FileType&#39;:&#39;FileType&#39;,&#39;IsContainer&#39;:&#39;IsContainer&#39;,&#39;SecondaryFileExtension&#39;:&#39;SecondaryFileExtension&#39;,&#39;DisplayAuthor&#39;:&#39;DisplayAuthor&#39;,&#39;SiteTitle&#39;:&#39;SiteTitle&#39;,&#39;Filename&#39;:&#39;Filename&#39;,&#39;ContentType&#39;:&#39;ContentType&#39;,&#39;SPSiteURL&#39;:&#39;SPSiteURL&#39;,&#39;ListURL&#39;:&#39;ListURL&#39;,&#39;ListItemID&#39;:&#39;ListItemID&#39;,&#39;SalesLeadSalesRep&#39;:&#39;SalesLeadSalesRep&#39;,&#39;Created&#39;:&#39;Created&#39;,&#39;RefinableString07:&#39;RefinableString07&#39;,&#39;RefinableString08:&#39;RefinableString08&#39;,&#39;RefinableString09:&#39;RefinableString09&#39;,&#39;RefinableString10:&#39;RefinableString10&#39;</mso:ManagedPropertyMapping>
+    <mso:ManagedPropertyMapping msdt:dt="string">&#39;ParentLink&#39;:&#39;ParentLink&#39;,&#39;FileType&#39;:&#39;FileType&#39;,&#39;IsContainer&#39;:&#39;IsContainer&#39;,&#39;SecondaryFileExtension&#39;:&#39;SecondaryFileExtension&#39;,&#39;DisplayAuthor&#39;:&#39;DisplayAuthor&#39;,&#39;SiteTitle&#39;:&#39;SiteTitle&#39;,&#39;Filename&#39;:&#39;Filename&#39;,&#39;ContentType&#39;:&#39;ContentType&#39;,&#39;SPSiteURL&#39;:&#39;SPSiteURL&#39;,&#39;ListURL&#39;:&#39;ListURL&#39;,&#39;ListItemID&#39;:&#39;ListItemID&#39;,&#39;Created&#39;:&#39;Created&#39;,&#39;RefinableString07:&#39;RefinableString07&#39;,&#39;RefinableString08:&#39;RefinableString08&#39;,&#39;RefinableString09:&#39;RefinableString09&#39;,&#39;RefinableString10:&#39;RefinableString10&#39;,&#39;SalesLeadFullName:&#39;SalesLeadFullName,&#39;SalesLeadCompany:&#39;SalesLeadCompany,&#39;SalesLeadPhone:&#39;SalesLeadPhone,&#39;SalesLeadEmail:&#39;SalesLeadEmail,&#39;SalesLeadDepartment:&#39;SalesLeadDepartment,&#;39SalesLeadStatus:&#;39SalesLeadStatus,&#39;RefinableString01:&#39;RefinableString01,&#39;SalesLeadReasonForContact:&#39;SalesLeadReasonForContact,&#39;SalesLeadPiquedInterest:&#39;SalesLeadPiquedInterest,&#39;LastName:&#39;LastName,&#39;FirstName:&#39;FirstName</mso:ManagedPropertyMapping>
     <mso:_dlc_DocId msdt:dt="string">2PPW52Q5PMDV-6-317</mso:_dlc_DocId>
     <mso:_dlc_DocIdItemGuid msdt:dt="string">8bfd50a1-79b3-4cbf-a4b2-f21c58476e0f</mso:_dlc_DocIdItemGuid>
     <mso:_dlc_DocIdUrl msdt:dt="string">http://spdev-2103.cloudapp.net/_layouts/15/DocIdRedir.aspx?ID=2PPW52Q5PMDV-6-317, 2PPW52Q5PMDV-6-317</mso:_dlc_DocIdUrl>
@@ -38,11 +38,12 @@
                     ctx.CurrentItem.csr_Icon = Srch.U.getIconUrlByFileExtension(ctx.CurrentItem)
                     ctx.currentItem_ShowHoverPanelCallback = Srch.U.getShowHoverPanelCallback(itemId, hoverId, hoverUrl);
                     ctx.currentItem_HideHoverPanelCallback = Srch.U.getHideHoverPanelCallback();
+                    var fullName = ctx.CurrentItem.FirstName+" "+ctx.CurrentItem.LastName;
+                    ctx.CurrentItem.fullName = fullName;
+                    console.log(ctx.CurrentItem.fullName);
                     var availableSorts = ctx.DataProvider.get_availableSorts();
-                            availableSorts.push({"name":"Name_DEC","sorts":[{"p":"RefinableString07","d":0}]});
-                            availableSorts.push({"name":"Name_ASC","sorts":[{"p":"RefinableString07","d":1}]});
-                            availableSorts.push({"name":"Facility_DEC","sorts":[{"p":"RefinableString08","d":0}]});
-                            availableSorts.push({"name":"Facility_ASC","sorts":[{"p":"RefinableString08","d":1}]});
+                            availableSorts.push({"name":"Name_DEC","sorts":[{"p":"fullName","d":0}]});
+                            availableSorts.push({"name":"Name_ASC","sorts":[{"p":"fullName","d":1}]});
                             availableSorts.push({"name":"Department_DEC","sorts":[{"p":"RefinableString09","d":0}]});
                             availableSorts.push({"name":"Department_ASC","sorts":[{"p":"RefinableString09","d":1}]});
                             availableSorts.push({"name":"ProductOfInterest_DEC","sorts":[{"p":"RefinableString10","d":0}]});
@@ -64,8 +65,7 @@
                             fullName = firstName+" "+lastName;
                             return fullName;
                         }
-                        var pathURL = "https://centurionmp.sharepoint.com/sites/sales/Lists/SalesLeads/EditForm.aspx?ID="+ctx.CurrentItem.ListItemID+"&Source=https%3A%2F%2Fcenturionmp%2Esharepoint%2Ecom%2Fsites%2Fsales%2FSitePages%2FSearchSalesLeads%2Easpx"; 
-                        ctx.CurrentItem.SalesLeadFullName = formatFullName(ctx.CurrentItem.SalesLeadFullName);
+                        var pathURL = "https://centurionmp.sharepoint.com/sites/sales/Lists/SalesLeads/EditForm.aspx?ID="+ctx.CurrentItem.ListItemID+"&Source=https%3A%2F%2Fcenturionmp%2Esharepoint%2Ecom%2Fsites%2Fsales%2FSitePages%2FSearchSalesLeads%2Easpx";
                         ctx.CurrentItem.ListURL = pathURL; 
                         var createdDate = Math.round((((ctx.CurrentItem.Created/1000)/60)/60)/24);
                         var todaysDate = Math.round((((new Date()/1000)/60)/60)/24);
@@ -75,10 +75,7 @@
                         <div class="item-container">
                             <div class="item-col">
                                 <a href="_#=ctx.CurrentItem.ListURL=#_"><i class="fa fa-pencil fg-2x" style="color: black; cursor: pointer;" title="Edit Lead" aria-hidden="true"></i></a>
-                                <span class="Title_Button"  href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_ <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></span>
-                            </div>
-                            <div class="item-col">
-                                <p>_#=ctx.CurrentItem.RefinableString08=#_</p>
+                                <span class="Title_Button"  href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.fullName=#_ <i class="fa fa-bolt fa-lg animated infinite pulse" style="color: green;" aria-hidden="true" title="New/Hot Lead"></i></span>
                             </div>
                             <div class="item-col">
                                 <p>_#=ctx.CurrentItem.RefinableString09=#_</p>
@@ -91,11 +88,8 @@
                          <div class="item-container">
                             <div class="item-col">
                                 <a href="_#=ctx.CurrentItem.ListURL=#_"><i class="fa fa-pencil fg-2x" style="color: black; cursor: pointer;" title="Edit Lead" aria-hidden="true"></i></a>
-                                <span class="Title_Button" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.SalesLeadFullName=#_
+                                <span class="Title_Button" href="_#=ctx.CurrentItem.Path=#_">_#=ctx.CurrentItem.fullName=#_
                                 </span>
-                            </div>
-                            <div class="item-col">
-                                <p>_#=ctx.CurrentItem.RefinableString08=#_</p>
                             </div>
                             <div class="item-col">
                                 <p>_#=ctx.CurrentItem.RefinableString09=#_</p>
