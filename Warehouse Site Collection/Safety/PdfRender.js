@@ -8,10 +8,9 @@ $(document).ready(function(){
 		var itemFileURI = items[itemsCount-1].File.__deferred.uri;
 		getJson(itemFileURI).done(function(data){
 			linkToPdf = data.d.ServerRelativeUrl;
-			var embedLocation = $("embed#pdfEmbed").parent().parent();
+			var embedLocation = $("h3#pdfHeading").parent().parent();
 			var pdfEmbed = "<embed src='"+linkToPdf+"' id='pdfEmbed' height='850' width='850'";
-			 pdfEmbed += "type='application/pdf'></embed>";			
-			$("embed#pdfEmbed").remove();
+			 pdfEmbed += "type='application/pdf'></embed>";
 			$(embedLocation).append(pdfEmbed);
 		}).fail(function(error){
 			alert("Sorry, there was an error retrieving file");
@@ -32,6 +31,5 @@ $(document).ready(function(){
 			}
 		});
 	}
-	
 });
 
