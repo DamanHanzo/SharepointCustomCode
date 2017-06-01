@@ -1,0 +1,160 @@
+<style>
+#mainBodyDiv {
+  position: relative;
+  width: 90%;
+  height: 90px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  font-family: "Segoe UI Semilight","Segoe UI","Segoe",Tahoma,Helvetica,Arial,sans-serif;
+}
+
+#mainBodyDiv > div {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  overflow: hidden;
+  color: #444;
+}
+
+h2 {
+  padding-bottom: 10px;
+}
+
+h2 > a {
+  color: black;
+}
+
+h3 {
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 10px;
+  color: black;
+}
+
+#prev, #next {
+  padding-top: 1%;
+  color: #444;
+}
+
+#prev {
+  float: left;
+}
+
+#next {
+  float: right;
+  padding-right: 7.88%;
+}
+</style>
+<script src="/SiteAssets/js/jquery.min.js"></script>
+<h2 class="class="ms-webpart-titleText"><a id="headerLink" href="https://centurionmp.sharepoint.com/sites/customerservice/Lists/CustomerServiceAnnouncements/AllItems.aspx">Announcements</a></h2>
+<div id="mainBodyDiv"></div>
+<a href="#" id="prev">Previous</a>
+<a href="#" id="next">Next</a>
+<script>
+$(document).ready(function(){
+  var sliderIntervalID = setInterval(function(){
+      $("#mainBodyDiv > div:first")
+        .removeClass("active")
+        .fadeOut(1000)
+        .next()
+        .fadeIn(1000)
+        .end()
+        .addClass("active")
+        .appendTo("#mainBodyDiv");
+    }, 6500);
+  var endpointUrl = _spPageContextInfo.webServerRelativeUrl + "/_api/web/Lists(guid'30e391f3-71f5-406a-aad2-9a8579da88b2')/Items";
+  getJson(endpointUrl)
+  .done(function(data){
+    var itemsCount= data.d.results.length;
+    var items = data.d.results;
+    var mainBodyDiv = $("#mainBodyDiv");
+    var announcements = "";
+    items.forEach(function(item){
+      var body = item.Body;
+      var bodyText = $(body).find("p").text();
+      console.log(bodyText);
+      console.log(bodyText.length);
+      if(bodyText.length > 410){
+        var str50 = bodyText.substr(0, 410);
+        var shortText = str50+" <a class='readmore' href='https://centurionmp.sharepoint.com/sites/customerservice/Lists/CustomerServiceAnnouncements/DispForm.aspx?ID="+item.ID+"'>Read More</a>";
+        announcements += "<div class='slide'><h3><a href='https://centurionmp.sharepoint.com/sites/customerservice/Lists/CustomerServiceAnnouncements/DispForm.aspx?ID="+item.ID+"'>"+item.Title+"</a></h3>"+shortText+"</div>";
+      } else {
+        announcements += "<div class='slide'><h3><a href='https://centurionmp.sharepoint.com/sites/customerservice/Lists/CustomerServiceAnnouncements/DispForm.aspx?ID="+item.ID+"'>"+item.Title+"</a></h3>"+body+"</div>";
+      }
+    });
+    $(mainBodyDiv).append(announcements);
+    $(".slide").first().addClass('active');
+    $(".slide").hide();
+    $(".active").show();
+  })
+  .fail(function(error){
+    console.log(JSON.stringify(error)); 
+  });
+
+  function getJson(url){
+    return $.ajax({
+      url: url,
+      type: "GET",
+      contentType: "application/json;odata=verbose",
+      headers: {
+        "Accept": "application/json;odata=verbose"
+      }
+    });
+  } 
+
+  $("a#next").on("click", function(){
+    clearInterval(sliderIntervalID);
+    $('.active').removeClass('active').addClass('oldActive');    
+      if ( $('.oldActive').is(':last-child')) {
+          $('.slide').first().addClass('active');
+      }
+      else {
+          $('.oldActive').next().addClass('active');
+      }
+      $('.oldActive').removeClass('oldActive');
+      $('.slide').fadeOut();
+      $('.active').fadeIn();
+      var index = $(".active").index();
+      sliderIntervalID = setInterval(function(){
+      $("#mainBodyDiv > div:nth-child("+index+")")
+        .removeClass("active")
+        .fadeOut(1000)
+        .next()
+        .fadeIn(1000)
+        .end()
+        .addClass("active")
+        .appendTo("#mainBodyDiv");
+    }, 6500);
+    //sliderIntervalID;
+  });
+
+
+  $("a#prev").on("click", function(){
+    clearInterval(sliderIntervalID);
+      $('.active').removeClass('active').addClass('oldActive');    
+        if ( $('.oldActive').is(':first-child')) {
+          $('.slide').last().addClass('active');
+        }
+        else {
+        $('.oldActive').prev().addClass('active');
+        }
+      $('.oldActive').removeClass('oldActive');
+      $('.slide').fadeOut();
+      $('.active').fadeIn();
+      var index = $(".active").index();
+      sliderIntervalID = setInterval(function(){
+      $("#mainBodyDiv > div:nth-child("+index+")")
+        .removeClass("active")
+        .fadeOut(1000)
+        .next()
+        .fadeIn(1000)
+        .end()
+        .addClass("active")
+        .appendTo("#mainBodyDiv");
+    }, 6500);
+    //sliderIntervalID;
+  });
+});
+</script>
