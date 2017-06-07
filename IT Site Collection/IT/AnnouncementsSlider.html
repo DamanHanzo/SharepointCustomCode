@@ -54,16 +54,7 @@ h3 {
 <a href="#" id="next">Next</a>
 <script>
 $(document).ready(function(){
-	var sliderIntervalID = setInterval(function(){
-			$("#mainBodyDiv > div:first")
-				.removeClass("active")
-				.fadeOut(1000)
-				.next()
-				.fadeIn(1000)
-				.end()
-				.addClass("active")
-				.appendTo("#mainBodyDiv");
-		}, 6500);
+	var sliderIntervalID;
 	var endpointUrl = _spPageContextInfo.webServerRelativeUrl + "/_api/web/Lists(guid'b461bc58-3db8-47a0-9521-c2b4174db85d')/Items";
 	getJson(endpointUrl)
 	.done(function(data){
@@ -88,6 +79,23 @@ $(document).ready(function(){
 		$(".slide").first().addClass('active');
 		$(".slide").hide();
 		$(".active").show();
+		if(itemsCount > 1){
+			sliderIntervalID = setInterval(function(){
+								$("#mainBodyDiv > div:first")
+									.removeClass("active")
+									.fadeOut(1000)
+									.next()
+									.fadeIn(1000)
+									.end()
+									.addClass("active")
+									.appendTo("#mainBodyDiv");
+								}, 6500);
+			$("a#prev").show();
+			$("a#next").show();
+		} else {
+			$("a#prev").hide();
+			$("a#next").hide();
+		}
 	})
 	.fail(function(error){
 		console.log(JSON.stringify(error));	
